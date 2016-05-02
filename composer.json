@@ -1,0 +1,29 @@
+{
+  "name": "kodehauz/midi",
+  "version": "dev",
+  "description": "MIDI Parser and Dumper",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "type": "library",
+  "license": "proprietary",
+  "homepage": "https://kodehauz.com/",
+  "authors": [
+    {
+      "name": "KodeHauz Team",
+      "email": "kodehauz@kodehauz.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8"
+  },
+  "autoload": {
+    "psr-4": {"KodeHauz\\": "src/"}
+  },
+  "autoload-dev": {
+    "psr-4": {"KodeHauz\\Tests\\": "tests/src/"}
+  }
+
+}
