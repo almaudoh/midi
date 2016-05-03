@@ -2,6 +2,8 @@
 
 namespace KodeHauz\Midi\Event\Meta;
 
+use KodeHauz\Utility\Byte;
+
 class SequencerSpecific extends MetaEvent {
 
   use ToStringWithoutTypeTrait;
@@ -13,4 +15,9 @@ class SequencerSpecific extends MetaEvent {
   public function __toString() {
     return "{$this->time} {$this->mnemonic}{$this->value}";
   }
+
+  public function getValueArray() {
+    return Byte::stringToByteArray($this->value);
+  }
+
 }

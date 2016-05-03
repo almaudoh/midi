@@ -55,6 +55,13 @@ class ByteTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($byte_array, Byte::stringToByteArray($string));
   }
 
+  /**
+   * @dataProvider providerIntToBinaryString
+   */
+  public function testIntToBinaryString($integer, $length, $binary_string) {
+    $this->assertEquals($binary_string, Byte::intToBinaryString($integer, $length));
+  }
+
   public function providerVarLen() {
     return array(
       array(0x00000000, chr(0x00)),
@@ -108,4 +115,16 @@ class ByteTest extends \PHPUnit_Framework_TestCase {
       array('01234567890 ha ha', array(0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x30, 0x20, 0x68, 0x61, 0x20, 0x68, 0x61)),
     );
   }
+
+  public function providerIntToBinaryString() {
+    return array(
+      array(4, 2, chr(0) . chr(4)),
+      array(12, 4, chr(0) . chr(0) . chr(0) . chr(12)),
+      array(18, 3, chr(0) . chr(0) . chr(18)),
+      array(2000, 5, chr(0) . chr(0) . chr(0) . chr(0x07) . chr(0xD0)),
+      array(5000, 1, chr(0x88)),
+      array(3658, 6, chr(0) . chr(0) . chr(0) . chr(0) . chr(0x0E) . chr(0x4A)),
+    );
+  }
+
 }

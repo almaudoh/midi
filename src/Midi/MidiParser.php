@@ -80,7 +80,6 @@ class MidiParser implements Parser {
     $p = 4;
     $time = 0;
     $events = array();
-//    $last = '';
     while ($p < $trackLen) {
       // timedelta
       $dt = $this->readVarLen($binStr, $p);

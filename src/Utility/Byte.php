@@ -83,15 +83,30 @@ class Byte {
     return $binary_array;
   }
 
-  /** int to bytes (length $len) */
-  public static function getBytes($n, $len) {
+  /**
+   * Returns a given integer as a padded byte string.
+   *
+   * @param int $number
+   * @param int $length
+   *   The length to pad the bytes to (number of bytes to return).
+   *
+   * @return string
+   */
+  public static function intToBinaryString($number, $length) {
     $str = '';
-    for ($i = $len - 1; $i >= 0; $i--) {
-      $str .= chr(floor($n / pow(256, $i)));
+    for ($i = $length - 1; $i >= 0; $i--) {
+      $str .= chr(floor($number / pow(256, $i)));
     }
     return $str;
   }
 
+  /**
+   * Converts a character string to an array of bytes.
+   *
+   * @param $string
+   *
+   * @return array
+   */
   public static function stringToByteArray($string) {
     $bytes = array();
     for ($i = 0; $i < strlen($string); $i++) {

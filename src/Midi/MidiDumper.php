@@ -11,7 +11,7 @@ class MidiDumper implements Dumper {
   public function dump(Midi $midi, $ttype) {
     $track_count = $midi->getTrackCount();
     $type = ($track_count > 1) ? 1 : 0;
-    $midStr = "MThd\0\0\0\6\0" . chr($type) . Byte::getBytes($track_count, 2) . Byte::getBytes($midi->getTimeBase(), 2);
+    $midStr = "MThd\0\0\0\6\0" . chr($type) . Byte::intToBinaryString($track_count, 2) . Byte::intToBinaryString($midi->getTimeBase(), 2);
     foreach ($midi->getTracks() as $track) {
       $midStr .= $this->dumpTrack($track);
     }
@@ -20,9 +20,7 @@ class MidiDumper implements Dumper {
 
   protected function dumpTrack(Track $track) {
     $time = 0;
-    $dump = "MTrk";
-    $trackStart = strlen($dump);
-
+    $dump = '';
     $last = '';
 
     foreach ($track->getAllEvents() as $event) {
@@ -50,8 +48,7 @@ class MidiDumper implements Dumper {
 
       $dump .= $str;
     }
-    $trackLen = strlen($dump) - $trackStart;
-    return substr($dump, 0, $trackStart) . Byte::getBytes($trackLen, 4) . substr($dump, $trackStart);
+    return 'MTrk' . Byte::intToBinaryString(strlen($dump), 4) . $dump;
   }
 
   /**
